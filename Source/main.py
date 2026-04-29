@@ -2,20 +2,23 @@ from serial_reader import connect, read_line
 from processor import parse_data, detect_anomaly, temp_window, hum_window, air_window
 from logger import log_data
 
-# ser = connect(port='COM5', baud=9600)
 
-# For testing without hardware
 import random
 import time
 
-def fake_data():
+def fake_data(): # For testing without hardware
     return f"TEMP:{random.uniform(25,30)},HUM:{random.uniform(50,70)},AIR:{random.uniform(100,200)}"
+
+ser = connect(port='COM5', baud=9600)
 
 print("Listening to Arduino...")
 
 while True:
-    line = fake_data()
-    
+    if True:
+        line = fake_data()
+    else:
+        line = read_line(ser)
+        
     if not line:
         continue
 
